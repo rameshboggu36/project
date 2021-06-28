@@ -43,9 +43,7 @@ public class OrderAPI {
 	public ResponseEntity<String> placeOrder(@PathVariable String buyerId, @RequestBody OrderDTO order){
 		
 		try {
-//			List<ServiceInstance> userInstances=client.getInstances("USERMS");
-//			ServiceInstance userInstance=userInstances.get(0);
-//			URI userUri = userInstance.getUri();
+
 			
 			ObjectMapper mapper = new ObjectMapper();
 			List<ProductDTO> productList = new ArrayList<>();
@@ -54,9 +52,7 @@ public class OrderAPI {
 				    new TypeReference<List<CartDTO>>(){}
 				);
 			
-//			List<ServiceInstance> instances=client.getInstances("PRODUCTMS");
-//			ServiceInstance instance=instances.get(0);
-//			URI productUri = instance.getUri();
+
 			
 			cartList.forEach(item ->{
 				ProductDTO prod = new RestTemplate().getForObject(productUri+"/prodMS/getById/" +item.getProdId(),ProductDTO.class) ; //getByProdId/{productId}
@@ -142,10 +138,7 @@ public class OrderAPI {
 		
 		try {
 			
-//			List<ServiceInstance> userInstances=client.getInstances("USERMS");
-//			ServiceInstance userInstance=userInstances.get(0);
-//			URI userUri = userInstance.getUri();
-			
+
 			String successMsg = new RestTemplate().postForObject(userUri+"/userMS/buyer/cart/add/"+buyerId+"/"+prodId+"/"+quantity, null, String.class);
 
 			return new ResponseEntity<>(successMsg,HttpStatus.ACCEPTED);
@@ -166,10 +159,7 @@ public class OrderAPI {
 		
 		try {
 			
-//			List<ServiceInstance> userInstances=client.getInstances("USERMS");
-//			ServiceInstance userInstance=userInstances.get(0);
-//			URI userUri = userInstance.getUri();
-//			System.out.println(userUri);
+
 			
 			String successMsg = new RestTemplate().postForObject(userUri+"/userMS/buyer/cart/remove/"+buyerId+"/"+prodId, null, String.class);
 			
